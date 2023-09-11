@@ -59,21 +59,21 @@ export default function App() {
       description: t("ORS.Generally")
     },
   ];
-  const satisfactionScaleData = [
-    t("TSS.Accommodation"),
-    t("TSS.PhysicalHealth"),
-    t("TSS.Work"),
-    t("TSS.Economy"),
-    t("TSS.Alcohol"),
-    t("TSS.Drug"),
-    t("TSS.Game"),
-    t("TSS.LegalIssues"),
-    t("TSS.FamilySocialInteraction"),
-    t("TSS.FreeTime"),
-    t("TSS.PystoneHealth"),
-    t("TSS.Communication"),
-    t("TSS.GeneralWellBeing"),
-  ];
+  // const satisfactionScaleData = [
+  //   t("TSS.Accommodation"),
+  //   t("TSS.PhysicalHealth"),
+  //   t("TSS.Work"),
+  //   t("TSS.Economy"),
+  //   t("TSS.Alcohol"),
+  //   t("TSS.Drug"),
+  //   t("TSS.Game"),
+  //   t("TSS.LegalIssues"),
+  //   t("TSS.FamilySocialInteraction"),
+  //   t("TSS.FreeTime"),
+  //   t("TSS.PystoneHealth"),
+  //   t("TSS.Communication"),
+  //   t("TSS.GeneralWellBeing"),
+  // ];
 
   const [score15Answers, setScore15Answers] = useState<Array<number>>([...Array(score15Data.length)].map(_v => 0));
   const [activeScore15QuestionnaireIndex, setActiveScore15QuestionnaireIndex] = useState(0);
