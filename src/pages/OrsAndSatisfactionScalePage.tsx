@@ -15,7 +15,7 @@ interface Props {
     title: string;
     description: string;
   }[];
-  satisfactionScaleData: string[];
+  // satisfactionScaleData: string[];
   orsAndSatisfactionScaleAnswers: number[];
   setOrsAndSatisfactionScaleAnswers: React.Dispatch<React.SetStateAction<number[]>>;
   setShowScore15Page: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ interface Props {
 
 export default function OrsAndSatisfactionScalePage({
   orsData,
-  satisfactionScaleData,
+  // satisfactionScaleData,
   orsAndSatisfactionScaleAnswers,
   setOrsAndSatisfactionScaleAnswers,
   setShowScore15Page,

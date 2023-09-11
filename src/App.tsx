@@ -167,7 +167,7 @@ export default function App() {
         <Suspense fallback="Loading...">
           <OrsAndSatisfactionScalePage
             orsData={orsData}
-            satisfactionScaleData={satisfactionScaleData}
+            // satisfactionScaleData={satisfactionScaleData}
             orsAndSatisfactionScaleAnswers={orsAndSatisfactionScaleAnswers}
             setOrsAndSatisfactionScaleAnswers={setOrsAndSatisfactionScaleAnswers}
             setShowScore15Page={setShowScore15Page}
