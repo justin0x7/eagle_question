@@ -15,7 +15,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonPrimary } from "../core/components/button/Button";
 import { RatingButton } from "../core/components/button/RatingButton";
-
+import { NavLink } from 'react-router-dom';
 
 interface Props {
   score15Data: string[];
@@ -108,6 +108,10 @@ export default function Score15Page({
     <Container sx={{ maxWidth: "768px", backgroundColor: "#fafafa", maxHeight: "100vh" }}>
       <Box sx={{ position: "relative", py: 1 }}>
         <Typography variant="h5" align="center">{`${t("Title.SurveyQuestion")} 1`}</Typography>
+        <Typography sx={{ fontSize: "12px" }} align="center" variant="subtitle1">
+          {t("SurveyQuestionLink")}
+          <a href="http://www.aft.org.uk" target="_blank" className="underline text-blue-600 cursor-pointer"> www.aft.org.uk</a>
+        </Typography>
         <Fab size="small" sx={{ position: "absolute", right: "10px", bottom: "37px", height: "17px", width: "36px" }} color="primary" aria-label="add" onClick={handleClickOpen} >
           <QuestionMarkIcon />
         </Fab>
@@ -178,11 +182,11 @@ export default function Score15Page({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-        {t("Score.DescribeTitle")}
+          {t("Score.DescribeTitle")}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          {t("Score.DescribeSentences")}
+            {t("Score.DescribeSentences")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

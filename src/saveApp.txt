@@ -54,6 +54,10 @@ export default function App() {
       title: t("ORS.Feeling3"),
       description: t("ORS.Social")
     },
+    {
+      title: t("ORS.Feeling4"),
+      description: t("ORS.Generally")
+    },
   ];
   // const satisfactionScaleData = [
   //   t("TSS.Accommodation"),
@@ -108,7 +112,7 @@ export default function App() {
     const ors = orsAndSatisfactionScaleAnswers.reduce((prev, curr) => {
       return prev + curr;
     }, 0); 
-    console.log("ors", ors)
+
     axios.post(
       `${API_URL}/score/create`,
       {
@@ -126,7 +130,6 @@ export default function App() {
       setHasError(true);
     });
   };
-  // console.log("result", orsAndSatisfactionScaleAnswers)
 
   const updateScore15 = (newVal: number) => {
     if (scoreEntity) {
@@ -144,7 +147,7 @@ export default function App() {
     else if (hasError) {
       return <div>{t("Message.Error")}</div>;
     }
-    else if (!showScore15Page) {
+    else if (showScore15Page) {
       return (
         <Suspense fallback="Loading...">
           <Score15Page
