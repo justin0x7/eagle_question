@@ -38,6 +38,9 @@ export default function OrsAndSatisfactionScalePage({
   const [open, setOpen] = React.useState(false);
   const [step, setStep] = React.useState(0);
   const scrollableDivRef = useRef<HTMLDivElement>(null);
+  // const [disregarded, setDisregarded] = useState<boolean>(true);
+  // const [checkAnswer, setCheckAnswer] = useState<boolean>(false);
+  const [checkAnswer, setCheckAnswer] = useState<Array<boolean>>([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,8 +60,15 @@ export default function OrsAndSatisfactionScalePage({
     const newAnswers = [...orsAndSatisfactionScaleAnswers];
     newAnswers[questionnaireIndex] = newValue;
     setOrsAndSatisfactionScaleAnswers(newAnswers);
+    setCheckAnswer(prevState => {
+      const updatedCheckAnswer = [...prevState];
+      updatedCheckAnswer[questionnaireIndex] = true;
+      return updatedCheckAnswer;
+    });
+    // setDisregarded(true)
+    console.log("xxxxxxxxxxx", checkAnswer[0], checkAnswer[1], checkAnswer[2], questionnaireIndex)
+
   };
-  // console.log("orsAndSatisfactionScaleAnswers", orsAndSatisfactionScaleAnswers)
 
   const [showDescription, setShowDescription] = useState(false);
 
@@ -68,8 +78,25 @@ export default function OrsAndSatisfactionScalePage({
   const upStep = () => {
     setStep(step - 1)
   }
-  const downStep = () => {
-    setStep(step + 1)
+  const downStep = (indexNum: number) => {
+    // checkAnswer === true ? setDisregarded(true) : setDisregarded(false)
+    // setStep(step + 1)
+    if (checkAnswer[indexNum] === true) {
+      // setDisregarded(true)
+      setStep(step + 1)
+      console.log("yyyyyyyyyyyy", checkAnswer[0], checkAnswer[1], checkAnswer[2], indexNum)
+
+    }
+    else {
+      // setDisregarded(false)
+      setCheckAnswer(prevState => {
+        const updatedCheckAnswer = [...prevState];
+        updatedCheckAnswer[indexNum] = false;
+        return updatedCheckAnswer;
+      });
+      console.log("yyyyyyyyyyyy", checkAnswer[0], checkAnswer[1], checkAnswer[2], indexNum)
+
+    }
   }
 
   // const handleClickPrev = () => {
@@ -119,21 +146,27 @@ export default function OrsAndSatisfactionScalePage({
             // visibility: index !== step ? "hidden" : "visible"
           }}>
             <CardContent>
-          <Stack key={index} gap={1} sx={{
-            // opacity: step === index ? 1 : 0.2,
-            pointerEvents: index === step ? 'auto' : 'none'
-          }} >
-            <Typography sx={{ visibility: step !== index ? "hidden" : "visible" }}>{`${(index + 1).toString().padStart(orsData.length.toString().length, '0')}/${orsData.length}`}</Typography>
-            <BorderLinearProgress
-              sx={{ visibility: step !== index ? "hidden" : "visible" }}
-              variant='determinate'
-              value={(step === index ? index + 1 : 0) / orsData.length * 100}
-            />
-            <Typography fontWeight="bold" variant="h6">{data.title}</Typography>
-            {/* {!showDescription && (
+              <Stack key={index} gap={1} sx={{
+                // opacity: step === index ? 1 : 0.2,
+                pointerEvents: index === step ? 'auto' : 'none'
+              }} >
+                <Typography sx={{ visibility: step !== index ? "hidden" : "visible" }}>{`${(index + 1).toString().padStart(orsData.length.toString().length, '0')}/${orsData.length}`}</Typography>
+                <BorderLinearProgress
+                  sx={{ visibility: step !== index ? "hidden" : "visible" }}
+                  variant='determinate'
+                  value={(step === index ? index + 1 : 0) / orsData.length * 100}
+                />
+                <Typography fontWeight="bold" variant="h6">{data.title}</Typography>
+                {step === index && (
+                  // disregarded === false &&
+                  checkAnswer[step] === false &&
+                  <Typography color="error" fontSize={12}>* {t("Word.Required")}.</Typography>)
+                }
+
+                {/* {!showDescription && (
               <Typography fontWeight="bold" variant="h6">{data.description}</Typography>
             )} */}
-            {/* <Slider
+                {/* <Slider
               value={orsAndSatisfactionScaleAnswers[index] || 0}
               onChange={(_e, newVal) => handleChange(index, newVal as number)}
               valueLabelDisplay="off"
@@ -142,49 +175,53 @@ export default function OrsAndSatisfactionScalePage({
               min={0}
               max={10}
             /> */}
-            <StyledRating>
-              {[...Array(5)].map((_it, index1) => (
-                <VasRatingButton
-                  key={index1}
-                  isSelected={orsAndSatisfactionScaleAnswers[index] === (index1+1)}
-                  value={index1 + 1}
-                  onChange={(newValue: number) => handleChange(index, newValue)}
-                />
-              ))}
-              
-            </StyledRating>
-            <Stack direction="row" gap={2} justifyContent="center" alignItems="center">
-              <Button onClick={upStep} sx={{ visibility: index !== step || index === 0 ? "hidden" : "visible" }}>
-                <ArrowCircleUpIcon />
-              </Button>
-              {/* {t(index === orsData.length - 1 ? "Action.GoToORS" : "Action.Next")} */}
-              {index === orsData.length - 1 ? (
-                <>
-                  <Button
-                    variant="contained"
-                    onClick={() => setShowScore15Page(true)}
-                    sx={{
-                      borderRadius: "100%",
-                      minWidth: "56px",
-                      backgroundColor: "#FFFFFF",
-                      '&:hover': {
-                        backgroundColor: "#dadada"
-                      }
-                    }}
-                  >
-                    <KeyboardBackspaceIcon color="success" />
+                <StyledRating>
+                  {[...Array(5)].map((_it, index1) => (
+                    <VasRatingButton
+                      key={index1}
+                      isSelected={orsAndSatisfactionScaleAnswers[index] === (index1 + 1)}
+                      value={index1 + 1}
+                      onChange={(newValue: number) => handleChange(index, newValue)}
+                    />
+                  ))}
+
+                </StyledRating>
+                <Stack direction="row" gap={2} justifyContent="center" alignItems="center">
+                  <Button onClick={upStep} sx={{ visibility: index !== step || index === 0 ? "hidden" : "visible" }}>
+                    <ArrowCircleUpIcon />
                   </Button>
-                  <ButtonPrimary onClick={() => onSubmit()}>{t("Action.Submit")}</ButtonPrimary>
-                </>
-              ) : (
-                <ButtonPrimary onClick={downStep} endIcon={<SouthIcon />} sx={{ textTransform: "capitalize" }}>
-                  {t("Action.Next")}
-                </ButtonPrimary>
-              )}
-            </Stack>
-          </Stack>
-        </CardContent>
-        </Card>
+                  {/* {t(index === orsData.length - 1 ? "Action.GoToORS" : "Action.Next")} */}
+                  {index === orsData.length - 1 ? (
+                    <>
+                      <Button
+                        variant="contained"
+                        onClick={() => setShowScore15Page(true)}
+                        sx={{
+                          borderRadius: "100%",
+                          minWidth: "56px",
+                          backgroundColor: "#FFFFFF",
+                          '&:hover': {
+                            backgroundColor: "#dadada"
+                          }
+                        }}
+                      >
+                        <KeyboardBackspaceIcon color="success" />
+                      </Button>
+                      {checkAnswer[step] !== true
+                        ? <ButtonPrimary onClick={() => downStep(step)}>{t("Action.Submit")}</ButtonPrimary>
+                        : <ButtonPrimary onClick={() => onSubmit()}>{t("Action.Submit")}</ButtonPrimary>
+                      }
+
+                    </>
+                  ) : (
+                    <ButtonPrimary onClick={() => downStep(step)} endIcon={<SouthIcon />} sx={{ textTransform: "capitalize" }}>
+                      {t("Action.Next")}
+                    </ButtonPrimary>
+                  )}
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
         ))}
       </Stack>
 

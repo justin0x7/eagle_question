@@ -144,7 +144,7 @@ export default function App() {
     else if (hasError) {
       return <div>{t("Message.Error")}</div>;
     }
-    else if (showScore15Page) {
+    else if (!showScore15Page) {
       return (
         <Suspense fallback="Loading...">
           <Score15Page
