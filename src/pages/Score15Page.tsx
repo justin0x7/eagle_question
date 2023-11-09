@@ -107,7 +107,7 @@ export default function Score15Page({
   return (
     <Container sx={{ maxWidth: "768px", backgroundColor: "#fafafa", maxHeight: "100vh" }}>
       <Box sx={{ position: "relative", py: 1 }}>
-        <Typography variant="h5" align="center">{`${t("Title.SurveyQuestion")} 1`}</Typography>
+        <Typography variant="h5" align="center">{`${t("Title.SurveyQuestion")}`}</Typography>
         <Typography sx={{ fontSize: "12px" }} align="center" variant="subtitle1">
           SCORE-15 © Association for Family Therapy
           <a href="http://www.aft.org.uk" target="_blank" className="underline text-blue-600 cursor-pointer"> www.aft.org.uk</a>
