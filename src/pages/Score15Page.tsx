@@ -109,7 +109,7 @@ export default function Score15Page({
       <Box sx={{ position: "relative", py: 1 }}>
         <Typography variant="h5" align="center">{`${t("Title.SurveyQuestion")} 1`}</Typography>
         <Typography sx={{ fontSize: "12px" }} align="center" variant="subtitle1">
-          {t("SurveyQuestionLink")}
+          SCORE-15 © Association for Family Therapy
           <a href="http://www.aft.org.uk" target="_blank" className="underline text-blue-600 cursor-pointer"> www.aft.org.uk</a>
         </Typography>
         <Fab size="small" sx={{ position: "absolute", right: "10px", bottom: "37px", height: "17px", width: "36px" }} color="primary" aria-label="add" onClick={handleClickOpen} >
